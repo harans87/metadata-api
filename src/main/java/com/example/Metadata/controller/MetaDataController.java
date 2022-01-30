@@ -2,9 +2,6 @@ package com.example.Metadata.controller;
 
 import com.example.Metadata.delegate.MetadataDelegate;
 import com.example.Metadata.dto.Metadata;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +25,7 @@ public class MetadataController {
     @RequestMapping(method = RequestMethod.PUT, value = "/insert", consumes = "application/x-yaml")
     public ResponseEntity<?> insert(@RequestBody Metadata metadata) {
         try {
-            this.delegate.insert(metadata);
+            this.delegate.save(metadata);
             return new ResponseEntity<Metadata>(metadata, HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity<String>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

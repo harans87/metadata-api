@@ -20,4 +20,12 @@ public class MetadataDelegate {
         repository.save(metadata);
         return metadata;
     }
+    
+    public Metadata search(String searchTerms) {
+        return null;
+    }
+
+    public Metadata findByCompanyName(String companyName) {
+        return null;
+    }
 }
