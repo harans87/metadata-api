@@ -1,17 +1,25 @@
 package com.example.Metadata.dto;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Getter
-@Setter
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Data
+@NoArgsConstructor
 public class Maintainers {
     @Id
-    private String email;
-    private String name;
+    @JsonProperty("name")
+    public String name;
+    @JsonProperty("email")
+    public String email;
+    
 }
