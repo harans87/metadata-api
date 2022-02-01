@@ -2,8 +2,11 @@ package com.example.Metadata.controller;
 
 import com.example.Metadata.delegate.MetadataDelegate;
 import com.example.Metadata.dto.Metadata;
+import com.example.Metadata.utils.SchemaValidator;
+import com.networknt.schema.JsonSchema;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,18 +16,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class MetadataController {
     private final MetadataDelegate delegate;
+    private final SchemaValidator schemaValidator;
+    @Qualifier("jsonSchemaForValidation")
+    private final JsonSchema validationSchema;
 
     @Autowired
-    public MetadataController(MetadataDelegate delegate) {
+    public MetadataController(MetadataDelegate delegate, SchemaValidator schemaValidator, JsonSchema validationSchema) {
         this.delegate = delegate;
+        this.schemaValidator = schemaValidator;
+        this.validationSchema = validationSchema;
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/save", consumes = "application/x-yaml")
     public ResponseEntity<?> save(@RequestBody Metadata metadata) {
         try {
+            this.schemaValidator.validate(validationSchema, metadata);
             this.delegate.save(metadata);
             return new ResponseEntity<Metadata>(metadata, HttpStatus.OK);
         } catch (Exception ex) {
