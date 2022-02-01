@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "9f466b24-3c36-4fa9-928f-dc39487953aa",
+		"name": "Metadata API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Insert Metadata",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-yaml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "title: Valid App 1\nversion: 0.0.1\nmaintainers:\n- name: firstmaintainer app1\n  email: firstmaintainer@hotmail.com\n- name: secondmaintainer app1\n  email: secondmaintainer@gmail.com\ncompany: Random Inc.\nwebsite: https://website.com\nsource: https://github.com/random/repo\nlicense: Apache-2.0\ndescription: |\n ### Interesting Title\n Some application content, and description"
+				},
+				"url": {
+					"raw": "http://localhost:8080/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Metadata valid payload 2",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-yaml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "title: Valid App 3\nversion: 1.0.1\nmaintainers:\n- name: AppTwo Maintainer\n  email: apptwo@hotmail.com\ncompany: Upbound Inc.\nwebsite: https://upbound.io\nsource: https://github.com/upbound/repo\nlicense: Apache-2.0\ndescription: |\n ### Why app 2 is the best\n Because it simply is..."
+				},
+				"url": {
+					"raw": "http://localhost:8080/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Metadata Invalid Payload",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-yaml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "title: App w/ Invalid maintainer email\nversion: 1.0.1\nmaintainers:\n- name: Firstname Lastname\n  email: apptwohotmail.com\ncompany: Upbound Inc.\nwebsite: https://upbound.io\nsource: https://github.com/upbound/repo\nlicense: Apache-2.0\ndescription: |\n ### blob of markdown\n More markdown"
+				},
+				"url": {
+					"raw": "http://localhost:8080/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Metadata Invalid Payload 2",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-yaml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "title: App w/ missing version\nmaintainers:\n- name: first last\n  email: email@hotmail.com\n- name: first last\n  email: email@gmail.com\ncompany: Company Inc.\nwebsite: https://website.com\nsource: https://github.com/company/repo\nlicense: Apache-2.0\ndescription: |\n ### blob of markdown\n More markdown"
+				},
+				"url": {
+					"raw": "http://localhost:8080/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByCompanyName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/findByCompany?name=Random Inc.",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"findByCompany"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Random Inc."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByTitle",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/findByTitle?title=Valid App 1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"findByTitle"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Valid App 1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByTitleAndVersion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/findByTitleAndVersion?title=Valid App 1&version=0.0.1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"findByTitleAndVersion"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Valid App 1"
+						},
+						{
+							"key": "version",
+							"value": "0.0.1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchByDescription",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/findByDescription?description=best",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"findByDescription"
+					],
+					"query": [
+						{
+							"key": "description",
+							"value": "best"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
