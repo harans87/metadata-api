@@ -35,6 +35,35 @@
 			"response": []
 		},
 		{
+			"name": "update metadata",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-yaml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "title: Valid App 1\nversion: 0.0.1\nmaintainers:\n- name: firstmaintainer app1\n  email: firstmaintainer@hotmail.com\n- name: secondmaintainer app1\n  email: secondmaintainer@gmail.com\ncompany: Random Inc.\nwebsite: https://website.com\nsource: https://github.com/random/repo\nlicense: Apache-2.0\ndescription: |\n ### Interesting Title\n Some application content, and description"
+				},
+				"url": {
+					"raw": "http://localhost:8080/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Insert Metadata valid payload 2",
 			"request": {
 				"method": "PUT",

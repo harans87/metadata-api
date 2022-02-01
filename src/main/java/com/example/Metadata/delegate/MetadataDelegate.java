@@ -7,6 +7,7 @@ import com.example.Metadata.dto.Metadata;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class MetadataDelegate {
@@ -47,10 +48,7 @@ public class MetadataDelegate {
         repository.save(metadata);
     }
 
-    public void updateByParam(String param, String value) {
-        
-    }
-
+    @Transactional
     public void delete(String title) {
         repository.deleteByTitle(title);
     }

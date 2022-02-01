@@ -7,7 +7,9 @@ import com.example.Metadata.dto.Metadata;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface MetaDataRepository extends CrudRepository<Metadata, Long> {
 
     Metadata findByCompany(final String company);
