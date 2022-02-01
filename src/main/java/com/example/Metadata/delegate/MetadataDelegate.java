@@ -1,5 +1,7 @@
 package com.example.Metadata.delegate;
 
+import java.util.List;
+
 import com.example.Metadata.dao.MetaDataRepository;
 import com.example.Metadata.dto.Metadata;
 
@@ -31,5 +33,13 @@ public class MetadataDelegate {
 
     public Metadata findByTitle(String title) {
         return repository.findByTitle(title);
+    }
+
+    public Metadata findByTitleAndVersion(String title, String version) {
+        return repository.findByTitleAndVersion(title, version);
+    }
+
+    public List<Metadata> findByDescription(String description) {
+        return repository.findByDescriptionContainingIgnoreCase(description);
     }
 }

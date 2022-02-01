@@ -4,7 +4,7 @@ import com.example.Metadata.delegate.MetadataDelegate;
 import com.example.Metadata.dto.Metadata;
 import com.example.Metadata.utils.SchemaValidator;
 import com.networknt.schema.JsonSchema;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -65,7 +65,12 @@ public class MetadataController {
     @GetMapping("/findByTitleAndVersion")
     public Metadata findByTitle(@RequestParam(value = "title") String title,
     @RequestParam(value = "version") String version) {
-        return this.delegate.findByTitle(title);
+        return this.delegate.findByTitleAndVersion(title, version);
+    }
+
+    @GetMapping("/findByDescription")
+    public List<Metadata> findByDescription(@RequestParam(value = "description") String description) {
+        return this.delegate.findByDescription(description);
     }
 
 }
