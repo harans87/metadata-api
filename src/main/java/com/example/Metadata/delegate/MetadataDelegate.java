@@ -25,7 +25,11 @@ public class MetadataDelegate {
         return null;
     }
 
-    public Metadata findByCompanyName(String companyName) {
-        return null;
+    public Metadata findByCompany(String companyName) {
+        return repository.findByCompany(companyName);
+    }
+
+    public Metadata findByTitle(String title) {
+        return repository.findByTitle(title);
     }
 }

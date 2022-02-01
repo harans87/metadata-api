@@ -7,5 +7,4 @@ public interface MetaDataRepository extends CrudRepository<Metadata, Long> {
 
     Metadata findByCompany(final String company);
     Metadata findByTitle(final String title);
-
 }

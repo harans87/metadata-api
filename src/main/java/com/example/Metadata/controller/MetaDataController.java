@@ -22,8 +22,8 @@ public class MetadataController {
         this.delegate = delegate;
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/insert", consumes = "application/x-yaml")
-    public ResponseEntity<?> insert(@RequestBody Metadata metadata) {
+    @RequestMapping(method = RequestMethod.PUT, value = "/save", consumes = "application/x-yaml")
+    public ResponseEntity<?> save(@RequestBody Metadata metadata) {
         try {
             this.delegate.save(metadata);
             return new ResponseEntity<Metadata>(metadata, HttpStatus.OK);
@@ -44,7 +44,18 @@ public class MetadataController {
 
     @GetMapping("/findByCompany")
     public Metadata findByCompany(@RequestParam(value = "name") String name) {
-        return null;
+        return this.delegate.findByCompany(name);
+    }
+
+    @GetMapping("/findByTitle")
+    public Metadata findByTitle(@RequestParam(value = "title") String title) {
+        return this.delegate.findByTitle(title);
+    }
+
+    @GetMapping("/findByTitleAndVersion")
+    public Metadata findByTitle(@RequestParam(value = "title") String title,
+    @RequestParam(value = "version") String version) {
+        return this.delegate.findByTitle(title);
     }
 
 }

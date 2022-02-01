@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Metadata",
+    "description": "API to create/update/search meta data",
+    "type": "object",
+    "properties": {
+        "title": {
+            "description": "title",
+            "type": "string"
+        },
+        "version": {
+            "description": "version",
+            "type": "string"
+        },
+        "company": {
+            "description": "company",
+            "type": "string"
+        },
+        "website": {
+            "description": "website",
+            "type": "string"
+        },
+        "source": {
+            "description": "source",
+            "type": "string"
+        },
+        "license": {
+            "description": "license",
+            "type": "string"
+        },
+        "description": {
+            "description": "description",
+            "type": "string"
+        },
+        "maintainers": {
+            "description": "maintainers",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Maintainers"
+            }
+        }
+    },
+    "definitions" : {
+		"Maintainers" : {
+			"type" : "object",
+			"properties" : {
+				"name": {
+                    "description": "name",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "email",
+                    "type": "string",
+                    "pattern": "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$"
+                }
+			},
+            "required": ["name", "email"]
+		}
+	},
+    "required": ["title", "version", "company","website","source","license","description","maintainers"]
+}
