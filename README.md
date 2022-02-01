@@ -1,4 +1,4 @@
-# tom-take-home
+# metadata-api
 Metadata API to create, update, delete and search meta data's.
 
 1. Download the source code and do ./gradlew clean --refresh-dependencies to download the dependencies.
