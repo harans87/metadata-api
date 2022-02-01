@@ -42,4 +42,16 @@ public class MetadataDelegate {
     public List<Metadata> findByDescription(String description) {
         return repository.findByDescriptionContainingIgnoreCase(description);
     }
+
+    public void update(Metadata metadata) {
+        repository.save(metadata);
+    }
+
+    public void updateByParam(String param, String value) {
+        
+    }
+
+    public void delete(String title) {
+        repository.deleteByTitle(title);
+    }
 }

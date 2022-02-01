@@ -1,10 +1,14 @@
 package com.example.Metadata.controller;
 
 import com.example.Metadata.delegate.MetadataDelegate;
+import com.example.Metadata.dto.ErrorResponse;
 import com.example.Metadata.dto.Metadata;
+import com.example.Metadata.dto.RequestValidationException;
 import com.example.Metadata.utils.SchemaValidator;
 import com.networknt.schema.JsonSchema;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -15,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 @RestController
 public class MetadataController {
@@ -38,18 +41,29 @@ public class MetadataController {
             this.delegate.save(metadata);
             return new ResponseEntity<Metadata>(metadata, HttpStatus.OK);
         } catch (Exception ex) {
-            return new ResponseEntity<String>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<ErrorResponse>(constructErrorResponse(ex), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/delete", consumes = "application/yaml")
-    public boolean delete() {
-        return true;
+    @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
+    public ResponseEntity<?> delete(@RequestParam(value = "title") String title) {
+        try {
+            this.delegate.delete(title);
+            return new ResponseEntity<String>(title, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<ErrorResponse>(constructErrorResponse(ex), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/update", consumes = "application/yaml")
-    public boolean update() {
-        return true;
+    @RequestMapping(method = RequestMethod.POST, value = "/update", consumes = "application/x-yaml")
+    public ResponseEntity<?> update(@RequestBody Metadata metadata) {
+        try {
+            this.delegate.update(metadata);
+            return new ResponseEntity<Metadata>(metadata, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<ErrorResponse>(constructErrorResponse(ex), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @GetMapping("/findByCompany")
@@ -64,13 +78,20 @@ public class MetadataController {
 
     @GetMapping("/findByTitleAndVersion")
     public Metadata findByTitle(@RequestParam(value = "title") String title,
-    @RequestParam(value = "version") String version) {
+            @RequestParam(value = "version") String version) {
         return this.delegate.findByTitleAndVersion(title, version);
     }
 
     @GetMapping("/findByDescription")
     public List<Metadata> findByDescription(@RequestParam(value = "description") String description) {
         return this.delegate.findByDescription(description);
+    }
+
+    private ErrorResponse constructErrorResponse(Exception ex) {
+        return ErrorResponse.builder()
+                .errorClass(ex.getClass().toString())
+                .errorDescription(ex.getMessage())
+                .build();
     }
 
 }

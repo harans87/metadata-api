@@ -16,4 +16,5 @@ public interface MetaDataRepository extends CrudRepository<Metadata, Long> {
     List<Metadata> findByDescriptionContainingIgnoreCase(final String description);
     @Query("SELECT m FROM Metadata m WHERE m.description LIKE %:description%")
     List<Metadata> searchByDescriptionLike(@Param("description") String description);
+    long deleteByTitle(String title);
 }
